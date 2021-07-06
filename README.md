@@ -11,11 +11,12 @@ have a virtual wallet where they can credit their wallet from within the system.
 mini project is to build a backend services using the microservice architecture to facilitate transfer
 of money from a wallet to another wallet. Note that, the said system has a user service, payment service and
 billing service respectively. The objective is:
-	a. Create an authentication mechanism for registering and authenticating user. Please note, We do
+	
+	A. Create an authentication mechanism for registering and authenticating user. Please note, We do
 		not require that the user is verified before they can use the system
-	b. When an authenticated user credits a service provider we want the user (from his wallet) We want the payment
+	B. When an authenticated user credits a service provider we want the user (from his wallet) We want the payment
 		Gateway to process the payment and then route it back to a messaging broker (RabbitMq or Kafka) to the billing
-	c. The upon notification from the broker, we want the billing service to deduct from the client wallet and credit
+	C. The upon notification from the broker, we want the billing service to deduct from the client wallet and credit
 		the service provider's wallet the amount paid by the client
 
 1. NB You can use any backend technologies to build this Notably, Java, Springboot, NodeJs, Python
