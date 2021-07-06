@@ -6,7 +6,7 @@
 
 Backend
 
-MoneyPal is a fictitous marketplace system where user have offer and request for services. Users 
+MoneyPal is a fictitous marketplace system where user have offers and request for services. Users 
 have a virtual wallet where they can credit their wallet from within the system. The goal of this
 mini project is to build a backend services using the microservice architecture to facilitate transfer
 of money from a wallet to another wallet. Note that, the said system has a user service, payment service and
