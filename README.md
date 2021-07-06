@@ -15,7 +15,7 @@ billing service respectively. The objective is:
 	A. Create an authentication mechanism for registering and authenticating user. Please note, We do
 		not require that the user is verified before they can use the system
 	B. When an authenticated user credits a service provider we want the user (from his wallet) We want the payment
-		Gateway to process the payment and then route it back to a messaging broker (RabbitMq or Kafka) to the billing
+		Gateway (Paypal) to process the payment and then route it back to a messaging broker (RabbitMq or Kafka) to the billing
 	C. The upon notification from the broker, we want the billing service to deduct from the client wallet and credit
 		the service provider's wallet the amount paid by the client
 
