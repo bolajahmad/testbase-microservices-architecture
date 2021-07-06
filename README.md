@@ -19,14 +19,14 @@ billing service respectively. The objective is:
 	C. Upon notification from the broker, we want the billing service to deduct from the client wallet and credit
 		the service provider's wallet the amount paid by the client
 
-1. NB You can use any backend technologies to build this Notably, Java, Springboot, NodeJs, Python
-2. You are also expected to containerize the app using docker
-3. You are also expected to write unit tests and integratiion test for your code
-4. setup a CI/CD pipeline and orchestration for the container
+NB You can use any backend technologies to build this Notably, Java, Springboot, NodeJs, Python
+1. You are also expected to containerize the app using docker
+2. You are also expected to write unit tests and integratiion test for your code
+3. setup a CI/CD pipeline and orchestration for the container
 
 Frontend
 
-1. You are required to build a mobile friendly user interface that assist the user to register and logon to the 
+1. You are required to build a mobile-friendly UI that assist the user to register and logon to the 
 system
 2. We also need an interface that allows the client to make payment
 3. We also need an interface that shows the report on the billings and payment
@@ -37,6 +37,6 @@ NB You can use React or Angular or Vue. The frontend component must
 2. It must be containerize
 3. You can also use kubernetes for orchestration
 4. Set up CI/CD pipelines for that
-5
+
 
 NB Application must be deployed to AWS.
