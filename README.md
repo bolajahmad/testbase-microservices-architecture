@@ -23,6 +23,7 @@ NB You can use any backend technologies to build this Notably, Java, Springboot,
 1. You are also expected to containerize the app using docker
 2. You are also expected to write unit tests and integratiion test for your code
 3. setup a CI/CD pipeline and orchestration for the container
+4. Use DynamoDB(AWS-serveless) for the persistent layer 
 
 Frontend
 
@@ -32,6 +33,7 @@ system
 3. We also need an interface that shows the report on the billings and payment
 
 NB You can use React or Angular or Vue. The frontend component must
+
 
 1. Have unit test and e2e test in place
 2. It must be containerize
