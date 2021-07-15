@@ -31,11 +31,11 @@ The user services handles the registration, authentication and authorization of 
 
 User Schema:
 
-first_name: string
-last_name: string
-user_name: string
-password:string
-id: uuid
+a. first_name: string
+b. last_name: string
+c. user_name: string
+d. password:string
+e. id: uuid
 
 
 
@@ -45,17 +45,17 @@ Handles the billing and funding of wallet. After payment takes place. The billin
 If the wallet is not blank, you can use the API directly to bill the client, client account is debited and service provider's account is credited.
 
 
-id: uuid
-user_id: User(referencing user objectid)
-invoice_no: int
-bill_amount: float
-status: boolean
-date: date
+a. id: uuid
+b. user_id: User(referencing user objectid)
+c. invoice_no: int
+d. bill_amount: float
+e. status: boolean
+f. date: date
 
 
 WallletDB
-userID: User (objectID)
-amount: float
+a. userID: User (objectID)
+b. amount: float
 
 
 # Email Service
@@ -70,10 +70,10 @@ If the user wallet is empty then use this service to make payment and notify the
 
 PaymentDB
 
-paid_by: User
-paid_to: nullable (if its not null then message the billing service to fund the account with the amount paid, and the deduct from the client and credit the service provider wallet)
-payment_amount: float
-status: bool
+a. paid_by: User
+b. paid_to: nullable (if its not null then message the billing service to fund the account with the amount paid, and the deduct from the client and credit the service provider wallet)
+c. payment_amount: float
+d. status: bool
 
 
 
