@@ -12,18 +12,73 @@ mini project is to build a backend services using the microservice architecture 
 of money from a wallet to another wallet. Note that, the said system has a user service, payment service and
 billing service respectively. The objective is:
 	
-	A. Create an authentication mechanism for registering and authenticating user. Please note, We do
-		not require that the user is verified before they can use the system
-	B. When an authenticated user credits a service provider we want the user (from his wallet) We want the payment
-		Gateway (Paypal) to process the payment and then route it back to a messaging broker (RabbitMq or Kafka) to the billing service
-	C. Upon notification from the broker, we want the billing service to deduct from the client wallet and credit
-		the service provider's wallet the amount paid by the client
+Create an authentication mechanism for registering and authenticating user. Please note, We do not require that the user is verified before they can use the system
+
+When an authenticated user credits a service provider we want the user (from his wallet) We want the payment Gateway (Paypal) to process the payment and then route it back to a messaging broker (RabbitMq or Kafka) to the billing service
+
+Upon notification from the broker, we want the billing service to deduct from the client wallet and credit the service provider's wallet the amount paid by the client
 
 NB You can use any backend technologies to build this Notably, Java, Springboot, NodeJs, Python
 1. You are also expected to containerize the app using docker
 2. You are also expected to write unit tests and integratiion test for your code
 3. setup a CI/CD pipeline and orchestration for the container
-4. Use DynamoDB(AWS-serveless) for the persistent layer 
+4. Use DynamoDB(AWS-serveless) for the persistent layer
+
+Using Database Per Service Pattern
+
+# User Service
+The user services handles the registration, authentication and authorization of the user. 
+
+User Schema:
+
+first_name: string
+last_name: string
+user_name: string
+password:string
+id: uuid
+
+
+
+
+# Billing Service
+Handles the billing and funding of wallet. After payment takes place. The billing service is notified and then bills the user in this way
+If the wallet is not blank, you can use the API directly to bill the client, client account is debited and service provider's account is credited.
+
+
+id: uuid
+user_id: User(referencing user objectid)
+invoice_no: int
+bill_amount: float
+status: boolean
+date: date
+
+
+WallletDB
+userID: User (objectID)
+amount: float
+
+
+# Email Service
+Sends emails to parties
+//the schema here keeps log
+
+
+
+# Payment Service
+Handles third party payment. Funding of wallet when he wants to fund it.
+If the user wallet is empty then use this service to make payment and notify the billing service to fund the account as the case may be
+
+PaymentDB
+
+paid_by: User
+paid_to: nullable (if its not null then message the billing service to fund the account with the amount paid, and the deduct from the client and credit the service provider wallet)
+payment_amount: float
+status: bool
+
+
+
+
+
 
 Frontend
 
