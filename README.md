@@ -10,13 +10,26 @@ MoneyPal is a fictitous marketplace system where user have offers and request fo
 have a virtual wallet where they can credit their wallet from within the system. The goal of this
 mini project is to build a backend services using the microservice architecture to facilitate transfer
 of money from a wallet to another wallet. Note that, the said system has a user service, payment service and
-billing service respectively. The objective is:
+billing service, wallet service respectively. The objective is:
 	
 Create an authentication mechanism for registering and authenticating user. Please note, We do not require that the user is verified before they can use the system
 
-When an authenticated user credits a service provider we want the user (from his wallet) We want the payment Gateway (Paypal) to process the payment and then route it back to a messaging broker (RabbitMq or Kafka) to the billing service
+Functional Requirement
+
+A registered user makes payment and get his wallet funded.
+When a client makes payment for a service, he should be billed for the service, 
+this will debit his wallet and credit the provider's wallet.
+
+
+Non functional Requirement
+
+When a user makes payment and his wallet get credited we want to be able to notify him the email service should handle this
+
 
 Upon notification from the broker, we want the billing service to deduct from the client wallet and credit the service provider's wallet the amount paid by the client
+
+
+
 
 NB You can use any backend technologies to build this Notably, Java, Springboot, NodeJs, Python
 1. You are also expected to containerize the app using docker
@@ -24,7 +37,7 @@ NB You can use any backend technologies to build this Notably, Java, Springboot,
 3. setup a CI/CD pipeline and orchestration for the container
 4. Use DynamoDB(AWS-serveless) for the persistent layer
 
-Using Database Per Service Pattern
+We are a using a Database Per Service Patter for this project
 
 # User Service
 The user services handles the registration, authentication and authorization of the user. 
@@ -38,11 +51,16 @@ d. password:string
 e. id: uuid
 
 
+# Wallet Service
+
+WallletDB
+a. userID: User (objectID)
+b. amount: float
+
+
 
 
 # Billing Service
-Handles the billing and funding of wallet. After payment takes place. The billing service is notified and then bills the user in this way
-If the wallet is not blank, you can use the API directly to bill the client, client account is debited and service provider's account is credited.
 
 
 a. id: uuid
@@ -52,10 +70,6 @@ d. bill_amount: float
 e. status: boolean
 f. date: date
 
-
-WallletDB
-a. userID: User (objectID)
-b. amount: float
 
 
 # Email Service
