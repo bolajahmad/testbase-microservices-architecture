@@ -26,7 +26,8 @@ Non functional Requirement
 When a user makes payment and his wallet get credited we want to be able to notify him the email service should handle this
 
 
-Upon notification from the broker, we want the billing service to deduct from the client wallet and credit the service provider's wallet the amount paid by the client
+Upon notification from the broker, we want the billing service to deduct from the client wallet and credit the service provider's wallet the amount paid by the client.
+Please note that wallet has its own service and we are using Database per Service pattern for our microservices.
 
 
 
