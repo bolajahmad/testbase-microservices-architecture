@@ -53,7 +53,7 @@ describe("POST request", () => {
           expect(res.body).to.a("object");
         });
     });
-    it("should return incorrect password", () => {
+    it("should return incorrect password if user input wrong password", () => {
       app
         .post("/api/auth/login")
         .send({
@@ -65,7 +65,7 @@ describe("POST request", () => {
           expect(res.body).to.a("object");
         });
     });
-    it("should return User not found", () => {
+    it("should return User not found if username doesn't exist in database", () => {
       app
         .post("/api/auth/login")
         .send({
