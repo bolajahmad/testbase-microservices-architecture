@@ -15,10 +15,8 @@ const loginController = async (req, res) => {
     handleValidation(req.body);
 
     const { username, password } = req.body;
-    const user = await getUser({ username });
-
-    const validPassword = bcrypt.compare(password, user.password);
-    console.log(validPassword);
+    const user = await getUser({ username }, true);
+    const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
       return res.status(400).json({ err_msg: "incorrect password" });
     }

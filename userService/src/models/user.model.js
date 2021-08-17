@@ -35,7 +35,7 @@ userSchema.methods.getSignedToken = function () {
   return jwt.sign(
     { _id: this._id, username: this.username },
     process.env.TOKEN_SECRET_KEY,
-    {expiresIn: process.env.TOKEN_EXPIRATION}
+    { expiresIn: process.env.TOKEN_EXPIRATION }
   );
 };
 

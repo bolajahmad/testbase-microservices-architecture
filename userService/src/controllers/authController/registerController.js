@@ -19,7 +19,6 @@ const registerController = async (req, res) => {
       return res.status(400).json({ error_msg: "Username already exists" });
     }
     req.body.password = await encryptPassword(password);
-
     const user = new User(req.body);
     const savedUser = await user.save();
     const token = savedUser.getSignedToken();
