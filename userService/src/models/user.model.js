@@ -29,13 +29,22 @@ const userSchema = mongoose.Schema({
     max: 115,
     select: false,
   },
+  status: {
+    type: String, 
+    enum: ['Pending', 'Active'],
+    default: 'Pending'
+  },
+  confirmationCode: { 
+    type: String, 
+    unique: true 
+  },
 });
 
 userSchema.methods.getSignedToken = function () {
   return jwt.sign(
     { _id: this._id, username: this.username },
     process.env.TOKEN_SECRET_KEY,
-    { expiresIn: process.env.TOKEN_EXPIRATION }
+    { expiresIn: '2h' }
   );
 };
 

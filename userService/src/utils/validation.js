@@ -5,7 +5,7 @@ const registerValidator = (value) => {
   const userSchema = joi.object({
     first_name: joi.string().min(3).max(60).required(),
     last_name: joi.string().min(3).max(60).required(),
-    username: joi.string().alphanum().min(3).max(60).required(),
+    username: joi.string().email().min(3).max(60).required(),
     password: joi.string().min(8).max(115).required().error((errors) => new Error('"foo" requires a positive number'))
   });
 
@@ -14,7 +14,7 @@ const registerValidator = (value) => {
 
 const loginValidator = (value) => {
   const userSchema = joi.object({
-    username: joi.string().alphanum().min(3).max(60).required(),
+    username: joi.string().email().min(3).max(60).required(),
     password: joi.string().min(8).max(115).required(),
   });
 

@@ -11,6 +11,7 @@ const getUser = async (query, password) => {
     if (!user) {
       throw Error("User not found");
     }
+    console.log({ user })
     return user;
   } catch (error) {
     throw error;

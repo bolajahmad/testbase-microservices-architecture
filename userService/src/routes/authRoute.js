@@ -4,7 +4,11 @@ const router = require("express").Router();
 const {
   loginController,
   registerController,
+  verifyEmailController,
 } = require("../controllers/authController");
+
+// @desc To activate a user
+router.get("/confirm/:confirmationCode", verifyEmailController);
 
 // @desc To register users
 // api/auth/register

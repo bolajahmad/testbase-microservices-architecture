@@ -3,9 +3,23 @@ const getUser = require("../services/user.services");
 
 const getAllUsersController = async (req, res) => {
   try {
-    const users = await User.find((err, user) => {
+    const users = await User.find((err, users) => {
       if (err) res.status(500).json({ success: false, error: err });
-      res.status(200).json({ success: true, data: user });
+      const data = users
+        .filter(({ status }) => status !== 'Pending')
+        .filter(({ _id }) => _id !== userId)
+        .map(({ last_name, first_name, username, _id }) => ({
+          lastName: last_name,
+          firstName: first_name,
+          id: _id,
+          username
+        }));
+
+      res.status(200).json({ 
+        message: 'Users Retrieved Successfully', 
+        isSuccessful: true, 
+        data
+       });
     });
     return users;
   } catch (error) {

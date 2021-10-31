@@ -8,6 +8,18 @@ const {
 } = require("../controllers/user.controller");
 
 // @desc To get all users
+// queue message
+// router.post('/queue', async(req, res, next)=>{
+//   let { queueName, payload } = req.body;
+//   await publishToQueue(queueName, payload).then((data) => console.log({ data }));
+//   res.status(200).json({
+//     message: 'Message Queued Successfully',
+//     isSuccessful: true,
+//     data: payload
+//   });
+//   next();
+// })
+
 // api/user
 router.get("/", authenticateToken, getAllUsersController);
 
