@@ -1,5 +1,6 @@
 import amqplib, { connect } from 'amqplib';
 import dotenv from 'dotenv';
+import once from 'lodash.once';
 
 dotenv.config();
 
@@ -32,34 +33,36 @@ class MessageBroker {
     }
 
     async subscribe(queue: string, handler: Function) {
-        let hasSubbed = false;
         if (!this.connection) {
             await this.init();      
         }
 
         if (this.queues[queue]) {
+            console.log({ queue })
             const existinghandler = this.queues[queue].find((cb) => cb === handler);
 
             if (existinghandler) {
+                console.log({ existinghandler })
                 return () => this.unsubscribe(queue, handler)
             }
 
             this.queues[queue].push(handler);
+            console.log("Could not find handler: ", this.queues);
+
             return () => this.unsubscribe(queue, handler);
         }
 
         if (this.channel) {
             await this.channel.assertQueue(queue, { durable: true });
             this.queues[queue] = [handler];
+            console.log("handler", handler)
             this.channel?.consume(
                 queue,
                 async (message) => {
                     console.log({ message });
                     if (message) {
-                        if (!hasSubbed) {
-                            const ack = this.channel?.ack(message);
-                            this.queues[queue].forEach(h => h(message, ack))
-                        }
+                        const ack = once(() => this.channel?.ack(message));
+                        this.queues[queue].forEach(h => h(message, ack))
                     }                    
                 }
             );

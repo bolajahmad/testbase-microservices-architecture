@@ -37,7 +37,8 @@ export const CreditWalletModal: React.FC<Props> = ({ onClose }) => {
     if (!user) {
         return <Redirect to="/" />
     }
-
+    console.log({ amount });
+    
     return (
         <Modal isOpen styles={styles}>
             <ModalBody>

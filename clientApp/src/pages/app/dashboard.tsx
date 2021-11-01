@@ -21,7 +21,7 @@ export const DashboardPage = () => {
             }
         }).then((response) => response.data)
         .then(({ data }) => setWalletDetails(data)).catch((error) => console.log({ error }))
-    }, []);
+    }, [userDetails]);
 
     if (!userDetails) {
         return <Redirect to="/login" />

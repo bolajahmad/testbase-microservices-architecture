@@ -33,9 +33,13 @@ export const TransferFormModal: React.FC<Props> = ({ onClose }) => {
         }).then((response) => response.data.data)
         .then((data) => {
             setUsers(data);
+            setAlert({ success: true, message: "Transfer Completed!" });
         })
-        .catch((error) => console.log({ error }))
-    }, []);
+        .catch((error) => {
+            console.log({ error });
+            setAlert({ success: false, message: "Transfer Failed!" });
+        })
+    }, [user]);
 
     if (!user) {
         return <Redirect to="/" />
