@@ -7,3 +7,10 @@ export interface CreditWalletModel {
     amount: number;
     payer: AuthenticatedUser;
 }
+
+export interface IWalletModel {
+    userId: string;
+    username: string;
+    billAmount: number;
+    status: string;
+}

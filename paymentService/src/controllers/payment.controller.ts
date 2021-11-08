@@ -3,13 +3,14 @@ import { PaymentSchema, VerifyPaymentModel } from '../models';
 import express from 'express';
 require('dotenv').config();
 import { handlePropsValidation } from "../utils";
+import MessageBroker from "../messaging";
 
 type Request = express.Request<never, never, VerifyPaymentModel>;
 
 export const verifyPaymentController = async (request: Request, response: express.Response) => {
     const { accountNumber, bankCode, reference, email, amount, user } = request.body;
-    handlePropsValidation({ reference, bankCode, accountNumber, email, amount });
     console.log({ user })
+    handlePropsValidation({ reference, bankCode, accountNumber, email, amount });
 
     try {
         const verifyResponse = await axios({
@@ -33,11 +34,20 @@ export const verifyPaymentController = async (request: Request, response: expres
 
         const payments = new PaymentSchema({
             wallet_id: user.id,
-            paid_by: email,
+            paid_by: user.username,
             paid_to: reference,
             payment_amount: paymentData.amount / 100,
             status: paymentData.status
         });
+        const billingData = { 
+            userId: user.id, 
+            billAmount: amount, 
+            invoiceNo: 1, 
+            status: data.status 
+        }
+        
+        const broker = await MessageBroker.getInstance();
+        await broker.send('add-billing', Buffer.from(JSON.stringify(billingData)));
         
         payments.save((err) => {
             if (err) {
@@ -55,19 +65,6 @@ export const verifyPaymentController = async (request: Request, response: expres
                 data
             });
         }); 
-
-        axios({
-            url: `${process.env.BILLING_SERVICE_BASE_URL}api/billing`,
-            method: 'POST',
-            data: { 
-                userId: user.id, 
-                billAmount: amount, 
-                invoiceNo: 1, 
-                status: data.status 
-            }
-        }).then((response) => response.data)
-        .then((data) => console.log({ data }))
-        .catch((err) => console.log({ err }))
     } catch (error) {
         console.log({ error });
         throw new Error('Payment Verification Failed');

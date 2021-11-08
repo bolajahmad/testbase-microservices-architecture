@@ -1,6 +1,6 @@
 export interface IBillingModel {
     id?: string;
-    receiverId: string;
+    receiverId?: string;
     payerId: string;
     invoiceNo: string;
     billAmount: number;

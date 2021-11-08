@@ -65,6 +65,7 @@ export const CreditWalletModal: React.FC<Props> = ({ onClose }) => {
                                     setFieldError('amount', 'Amount must be at least 50');
                                     return;
                                 }
+                                
                                 axios({
                                     method: 'POST',
                                     url: `${process.env.REACT_APP_PAYMENT_BASE_URL}payments/verify`,
@@ -89,7 +90,7 @@ export const CreditWalletModal: React.FC<Props> = ({ onClose }) => {
                                 reference: v4(),
                                 text: 'Credit Wallet',
                                 email: user.username,
-                                amount: 1000,
+                                amount: Number(values.amount) * 100,
                                 onSuccess, onClose: handleClose,
                                 publicKey: 'pk_test_86a34dfe9bb54afb6fd8d566918c1e83ed0c440e',
                             });

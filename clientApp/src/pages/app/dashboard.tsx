@@ -44,7 +44,7 @@ export const DashboardPage = () => {
 
                 <div className="row mb-4">
                     <span className="col-6 bold">Wallet Balance:</span>
-                    <span className="col-4">&#x20A6;{walletDetails?.amount.toLocaleString()}</span>
+                    <span className="col-4">&#x20A6;{(walletDetails?.amount ?? 0).toLocaleString()}</span>
                 </div>
             </Row>
 

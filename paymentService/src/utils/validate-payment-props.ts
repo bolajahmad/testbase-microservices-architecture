@@ -11,10 +11,10 @@ export const handlePropsValidation = (body: Omit<VerifyPaymentModel, 'user'>) =>
 const validateVerifyProps = (value: Omit<VerifyPaymentModel, 'user'>) => {
   const verifySchema = joi.object({
     reference: joi.string().min(3).max(60).required(),
-    accountNumber: joi.string().min(10).max(10).required(),
-    email: joi.string().email().min(3).max(60).required(),
+    accountNumber: joi.string().min(10).max(10),
+    email: joi.string().email().min(3).max(60),
     amount: joi.number().required(),
-    bankCode: joi.string().min(3).max(60).required(),
+    bankCode: joi.string().min(3).max(60),
   });
 
   return verifySchema.validate(value);
