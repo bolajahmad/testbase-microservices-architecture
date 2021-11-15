@@ -40,6 +40,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 require("dotenv").config();
 const connectDB = require("./src/config/db");
+const rabbit = require("./src/messaging/index")
+const {creditWallet} = require("./src/utils/wallet-utils");
 const walletRoute = require("./src/routes/walletRoute")
 
 const app = express();
@@ -54,6 +56,16 @@ app.use(express.json());
 
 //Routes
 app.use("/api", walletRoute)
+
+rabbit.getInstance().then((broker) => {
+  broker.subscribe('credit-self', (message, ack) => {
+    console.log({ message })
+    const walletData = JSON.parse(message.content.toString())
+    console.log({ walletData })
+    creditWallet(walletData)
+    ack();
+  })
+}).catch((error) => console.log({ error }));
 
 app.get("/", (req, res) => {
   res.send(`<h1>Welcome to the ExquisApp Testbase wallet service <br> part of the Moneypal Application</h1>

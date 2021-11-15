@@ -7,6 +7,8 @@ require('dotenv').config();
 // import routes
 import router from './src/routes';
 import MessageBroker from './src/messaging';
+import { EmailUtils } from './src/utils';
+import { IEmailConfig } from './src/models';
 
 const app = express();
 
@@ -20,8 +22,9 @@ app.use('/api', router);
 
 MessageBroker.getInstance().then((broker) => {
   broker.subscribe('email-queue', (message: any, ack: any) => {
-    console.log({ message, toString: message.content.toString() });
-    ack();
+    const emailData = JSON.parse(message.content.toString()) as IEmailConfig
+    EmailUtils.send(emailData)
+    ack?.();
   })
 }).catch((error) => console.log({ error }));
 

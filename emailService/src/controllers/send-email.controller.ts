@@ -13,7 +13,6 @@ export const sendEmailController = (request: express.Request, response: express.
       html
     });
     const emailDetails = new EmailSchema({ email, subject, html });
-    console.log({ emailDetails })
     sendConfirmationEmail({ email, subject, html });
     
     emailDetails.save((err, data) => {

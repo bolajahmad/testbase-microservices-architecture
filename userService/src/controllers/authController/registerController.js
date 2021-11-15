@@ -58,20 +58,6 @@ const emailData = {
       const broker = await rabbit.getInstance();
       await broker.send('email-queue', Buffer.from(JSON.stringify(emailData)));
       
-    // axios({
-    //   method: 'POST',
-    //   url: emailApi,
-    //   data: {
-    //     email: username,
-    //     subject: "Please confirm your account",
-    //     html: `<h1>Email Confirmation</h1>
-    //         <h2>Hello ${username.split('@')[0].trim()}</h2>
-    //         <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-    //         <a href=http://localhost:3000/confirm/${token}> Click here</a>
-    //         </div>`,
-    //   }
-    // }).then((data) => console.log({ data }))
-    // .catch((error) => console.log({ error }));
     await user.save();
 
     return res.status(201).json({

@@ -14,13 +14,14 @@ const getWalletController = async (req, res) => {
       message: 'Wallet Retrieved Successfully',
       isSuccessful: true, 
       data: {
-          amount: wallet.amount,
-          id: wallet._id,
-          username: wallet.username
-    }
+        amount: wallet.amount,
+        id: wallet._id,
+        username: wallet.username
+      }
     });
   } catch (error) {
-    return res.json(error);
+    console.log(error)
+    res.json(error);
   }
 };
 

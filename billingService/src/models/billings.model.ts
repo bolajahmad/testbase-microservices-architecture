@@ -7,8 +7,7 @@ const billingSchema = new Schema<IBillingModel>({
     required: true
   },
   receiverId: {
-    type: String,
-    required: true
+    type: String
   },
   billAmount: {
       type: Number,

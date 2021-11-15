@@ -1,4 +1,5 @@
 const amqplib = require('amqplib');
+const once = require('lodash.once');
 require('dotenv').config();
 
 /**
@@ -28,7 +29,6 @@ class MessageBroker {
     }
 
     async subscribe(queue, handler) {
-        var hasSubbed = false;
         if (!this.connection) {
             await this.init();
         }
@@ -50,11 +50,8 @@ class MessageBroker {
         this.channel.consume(
             queue,
             async (msg) => {
-                if (!hasSubbed) {
-                    const ack = this.channel.ack(msg);
-                    this.queues[queue].forEach(h => h(msg, ack));
-                    hasSubbed = true;
-                }
+                const ack = once(() => this.channel.ack(msg));
+                this.queues[queue].forEach(h => h(msg, ack));
             }
         );
 

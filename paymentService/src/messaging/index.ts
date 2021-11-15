@@ -1,4 +1,4 @@
-import amqplib, { connect } from 'amqplib';
+import amqplib from 'amqplib';
 import dotenv from 'dotenv';
 import once from 'lodash.once';
 
